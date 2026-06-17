@@ -3,546 +3,244 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>知识型工作者的 AI 工作流训练课件</title>
+  <title>AI Workflow Faculty</title>
   <style>
     :root {
       color-scheme: light;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: #12151a;
-      background: #0b1f33;
-      --navy: #0b1f33;
-      --ink: #12151a;
-      --paper: #f7f1e5;
-      --paper-soft: #fbf8f0;
-      --line: #d7cbbb;
-      --gold: #c5a05a;
-      --muted: #536170;
-      --blue: #243b53;
+      --ink: #0b1220;
+      --muted: #667085;
+      --line: #d8dee8;
+      --paper: #f7f5ee;
+      --panel: #ffffff;
+      --blue: #002fa7;
+      --gold: #c6a15b;
+      --teal: #0b766d;
     }
-    * { box-sizing: border-box; }
-    body { margin: 0; line-height: 1.68; background: linear-gradient(180deg, #0b1f33 0, #0b1f33 420px, #ece5d9 420px, #f7f1e5 100%); }
-    .artifact-shell { max-width: 1220px; margin: 0 auto; padding: 34px 26px 72px; }
-    .artifact-hero {
-      position: relative;
-      overflow: hidden;
-      padding: 58px 56px 46px;
-      color: var(--paper);
-      background: var(--navy);
-      border: 1px solid rgba(197, 160, 90, 0.38);
-      border-radius: 6px;
-      box-shadow: 0 22px 80px rgba(4, 12, 22, 0.28);
+
+    * {
+      box-sizing: border-box;
     }
-    .artifact-hero::after {
-      content: "";
-      position: absolute;
-      inset: 36px 52px auto auto;
-      width: 240px;
-      height: 132px;
-      border-top: 1px solid rgba(197, 160, 90, 0.62);
-      border-right: 1px solid rgba(197, 160, 90, 0.5);
-      pointer-events: none;
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
     }
-    .hero-kicker, .module-index, .segment-meta, .status-tile span, .block-label {
-      color: var(--gold);
-      font-size: 14px;
-      font-weight: 780;
-      letter-spacing: 0;
+
+    body {
+      display: grid;
+      place-items: center;
+      padding: 40px;
     }
-    .hero-kicker { text-transform: uppercase; }
-    h1, h2, h3 { letter-spacing: 0; }
-    h1 { max-width: 920px; margin: 12px 0 20px; font-size: clamp(38px, 5vw, 64px); line-height: 1.05; font-family: Georgia, "Times New Roman", "Songti SC", serif; }
-    h2 { margin: 0 0 12px; font-size: clamp(29px, 3.4vw, 43px); line-height: 1.16; font-family: Georgia, "Times New Roman", "Songti SC", serif; }
-    h3 { margin: 14px 0 12px; font-size: 25px; line-height: 1.25; }
-    p { margin: 0 0 15px; }
-    a { color: #0d4f8b; text-decoration-thickness: 1px; text-underline-offset: 4px; }
-    .hero-thesis { max-width: 900px; font-size: 21px; line-height: 1.5; font-weight: 650; color: #efe8dc; }
-    .meta-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 30px 0 0; }
-    .meta-grid div { padding: 15px 16px; background: rgba(247, 241, 229, 0.08); border: 1px solid rgba(247, 241, 229, 0.18); border-radius: 4px; }
-    dt { margin: 0 0 7px; color: var(--gold); font-size: 14px; font-weight: 780; }
-    dd { margin: 0; font-weight: 760; color: inherit; overflow-wrap: anywhere; line-height: 1.42; }
-    .artifact-nav {
-      position: sticky;
-      top: 0;
-      z-index: 3;
+
+    main {
+      width: min(1040px, 100%);
+      min-height: min(640px, calc(100vh - 80px));
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 44px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      padding: clamp(28px, 5vw, 56px);
+      box-shadow: 0 22px 70px rgba(15, 23, 42, 0.08);
+    }
+
+    .mark {
       display: flex;
       align-items: center;
-      gap: 14px;
-      margin: 14px 0;
-      padding: 10px 14px;
-      background: rgba(247, 241, 229, 0.96);
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      backdrop-filter: blur(16px);
+      justify-content: space-between;
+      gap: 20px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 18px;
     }
-    .artifact-nav strong { flex: 0 0 auto; color: var(--navy); font-size: 15px; white-space: nowrap; }
-    .artifact-nav ol { flex: 1 1 auto; min-width: 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; margin: 0; padding: 0; list-style: none; }
-    .artifact-nav li { min-width: 0; }
-    .artifact-nav a {
-      min-height: 42px;
-      display: grid;
-      grid-template-columns: auto minmax(0, 1fr);
+
+    .mark span {
+      display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 8px 9px;
-      color: var(--ink);
+      gap: 14px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 750;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .mark span::before {
+      content: "";
+      width: 32px;
+      height: 32px;
+      background-image: url("assets/aipha/nero-mark.svg");
+      background-repeat: no-repeat;
+      background-size: 145px 46px;
+      background-position: -10px -7px;
+      border: 1px solid var(--gold);
+    }
+
+    .mark b {
+      color: var(--gold);
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      gap: 44px;
+      align-items: end;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 720px;
+      font-size: clamp(44px, 7vw, 76px);
+      line-height: 1.02;
+      letter-spacing: 0;
+      font-weight: 680;
+    }
+
+    .lead {
+      margin: 24px 0 0;
+      max-width: 650px;
+      color: #344054;
+      font-size: clamp(18px, 2vw, 23px);
+      line-height: 1.55;
+      font-weight: 500;
+    }
+
+    .links {
+      display: grid;
+      gap: 16px;
+    }
+
+    a.card {
+      display: grid;
+      grid-template-columns: 76px 1fr;
+      gap: 20px;
+      align-items: center;
+      min-height: 136px;
+      padding: 24px;
+      color: inherit;
       text-decoration: none;
-      background: rgba(255, 255, 255, 0.5);
-      border-left: 2px solid var(--gold);
-      border-radius: 3px;
-    }
-    .artifact-nav .nav-chapter { color: var(--gold); font-size: 13px; line-height: 1; font-weight: 850; }
-    .artifact-nav .nav-title {
-      min-width: 0;
-      color: var(--ink);
-      font-size: 14px;
-      line-height: 1.22;
-      font-weight: 760;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .summary-strip { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin: 18px 0; }
-    .status-tile { min-height: 120px; padding: 17px 16px; border: 1px solid var(--line); background: var(--paper-soft); border-radius: 6px; }
-    .status-tile strong { display: block; margin-top: 12px; font-size: 16px; line-height: 1.45; color: var(--ink); overflow-wrap: anywhere; }
-    .profile-note, .module-chapter, .artifact-appendix { margin-top: 24px; padding: 32px; background: var(--paper-soft); border: 1px solid var(--line); border-radius: 6px; }
-    .pitchbook-note { border-left: 6px solid var(--gold); }
-    .reader-guide { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
-    .reader-guide p { margin: 0; color: #394658; }
-    .module-chapter { padding: 0; background: transparent; border: 0; }
-    .module-header {
-      padding: 34px 34px 28px;
-      color: var(--paper);
-      background: var(--navy);
-      border: 1px solid rgba(197, 160, 90, 0.35);
-      border-radius: 6px 6px 0 0;
-    }
-    .module-header p { max-width: 920px; color: #d7d0c4; font-size: 17px; }
-    .segment-card {
-      padding: 30px 34px 34px;
       border: 1px solid var(--line);
-      border-top: 0;
-      border-radius: 0 0 6px 6px;
-      background: var(--paper-soft);
+      background: #fafafa;
+      transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
     }
-    .segment-meta { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; color: var(--gold); }
-    .main-message { max-width: 940px; margin-bottom: 24px; font-size: 20px; line-height: 1.56; font-weight: 780; color: var(--blue); }
-    .content-blocks { max-width: 980px; }
-    .content-block {
-      margin: 0 0 18px;
-      font-size: 17px;
-      color: #20242a;
+
+    a.card:hover,
+    a.card:focus-visible {
+      transform: translateY(-2px);
+      border-color: var(--blue);
+      box-shadow: 0 18px 42px rgba(0, 47, 167, 0.12);
+      outline: none;
     }
-    .block-label { display: block; margin-bottom: 6px; font-size: 13px; text-transform: uppercase; }
-    .content-bullet { display: grid; grid-template-columns: 16px minmax(0, 1fr); gap: 10px; align-items: start; }
-    .content-bullet p { margin: 0; }
-    .bullet-dot { width: 7px; height: 7px; margin-top: 11px; background: var(--gold); border-radius: 50%; }
-    .callout, .note-block {
-      padding: 18px 20px;
-      border-radius: 6px;
-      border: 1px solid var(--line);
-      background: #ffffff;
+
+    .card em {
+      display: grid;
+      place-items: center;
+      width: 76px;
+      height: 76px;
+      background: var(--blue);
+      color: #fff;
+      font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 800;
     }
-    .callout { border-left: 5px solid var(--gold); }
-    .note-block { color: #364457; }
-    .figure-note { background: #f1eee6; }
-    .table-note { background: #f8f5ee; }
-    .source-notes {
-      margin-top: 28px;
-      padding: 18px 20px;
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.62);
-      color: #465569;
-      font-size: 14px;
-      border-radius: 6px;
+
+    .card:nth-child(2) em {
+      background: var(--teal);
     }
-    .source-notes strong { color: var(--navy); }
-    .source-notes ul { display: grid; gap: 6px; margin: 10px 0 0; padding-left: 18px; }
-    .muted { color: #6b7280; }
-    .artifact-appendix { background: var(--navy); color: var(--paper); border-color: rgba(197, 160, 90, 0.42); }
-    .artifact-appendix p, .artifact-appendix dt { color: #d7d0c4; }
-    .artifact-appendix dd { color: var(--paper); }
-    .artifact-appendix .meta-grid div { background: rgba(247, 241, 229, 0.07); border-color: rgba(247, 241, 229, 0.18); }
-    @media (max-width: 980px) {
-      .artifact-nav { position: static; }
-      .artifact-nav ol { display: flex; overflow-x: auto; padding-bottom: 2px; }
-      .artifact-nav li { flex: 0 0 150px; }
-      .summary-strip, .reader-guide, .meta-grid { grid-template-columns: 1fr 1fr; }
+
+    .card strong {
+      display: block;
+      font-size: 26px;
+      line-height: 1.15;
     }
-    @media (max-width: 680px) {
-      .artifact-shell { padding: 18px 14px 44px; }
-      .artifact-hero, .profile-note, .segment-card, .artifact-appendix { padding: 22px; }
-      .module-header { padding: 24px 22px; }
-      .artifact-nav { align-items: flex-start; gap: 10px; }
-      .artifact-nav ol { grid-template-columns: none; }
-      .summary-strip, .reader-guide, .meta-grid { grid-template-columns: 1fr; }
-      h1 { font-size: 34px; }
-      h2 { font-size: 27px; }
-      h3 { font-size: 22px; }
+
+    .card span {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 820px) {
+      body {
+        padding: 18px;
+      }
+
+      main {
+        min-height: calc(100vh - 36px);
+        gap: 34px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      footer {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 520px) {
+      a.card {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
-<body class="pitchbook-mode" data-renderer="html_longform_renderer" data-html-profile="web_deck">
-  <main class="artifact-shell">
-    <header class="artifact-hero">
-      <div class="hero-kicker">讲师手册 · Instructor Handbook</div>
-      <h1>知识型工作者的 AI 工作流训练课件</h1>
-      <p class="hero-thesis">学习 AI 工作流的第一步不是选择工具，而是建立控制对象：模型、提示词、上下文、工具、工作流、Agent、Harness、质量门和评估各自负责不同风险。</p>
-      <dl class="meta-grid hero-outcomes">
-        <div><dt>课程对象</dt><dd>审计、律师、投行、财务等知识型工作者</dd></div>
-        <div><dt>训练目标</dt><dd>把 AI 从聊天工具升级为可复核工作流</dd></div>
-        <div><dt>课程形式</dt><dd>PPT 现场讲授 + 长文课后复盘</dd></div>
-        <div><dt>主案例</dt><dd>Hermes 任务流水线；其他项目只作辅助证明</dd></div>
-      </dl>
+<body>
+  <main>
+    <header class="mark">
+      <span>AI Workflow Faculty</span>
+      <b>Evidence · Workflow · Harness</b>
     </header>
-    <nav aria-label="Table of contents" class="artifact-nav">
-      <strong>课程目录</strong>
-      <ol>
-        <li><a href="#segment-module-m01-why-tools-are-not-enough"><span class="nav-chapter">01</span><span class="nav-title">从零开始</span></a></li>
-        <li><a href="#segment-module-m02-hermes-workflow"><span class="nav-chapter">02</span><span class="nav-title">可重复任务</span></a></li>
-        <li><a href="#segment-module-m03-kat-artifact-engineering"><span class="nav-chapter">03</span><span class="nav-title">Agent 边界</span></a></li>
-        <li><a href="#segment-module-m04-design-team-delivery-quality"><span class="nav-chapter">04</span><span class="nav-title">Harness</span></a></li>
-        <li><a href="#segment-module-m05-aipha-knowledge-compounding"><span class="nav-chapter">05</span><span class="nav-title">事实架构</span></a></li>
-        <li><a href="#segment-module-m06-loki-decision-governance"><span class="nav-chapter">06</span><span class="nav-title">案例诊所</span></a></li>
-        <li><a href="#segment-module-m07-transferable-ai-workflow-model"><span class="nav-chapter">07</span><span class="nav-title">工作流画布</span></a></li>
-      </ol>
-    </nav>
-    <section class="summary-strip" aria-label="Course promise">
-      <div class="status-tile"><span>基础词典</span><strong>从 LLM、Prompt、Context 到 Agent 和 Harness</strong></div>
-      <div class="status-tile"><span>主线机制</span><strong>任务流水线、证据链、质量门、人工复核</strong></div>
-      <div class="status-tile"><span>论文消化</span><strong>英文研究由讲师转译为中文工程原则</strong></div>
-      <div class="status-tile"><span>案例比例</span><strong>五个项目只作为业务场景证明，不喧宾夺主</strong></div>
-      <div class="status-tile"><span>课后产物</span><strong>九步工作流画布可直接带回岗位使用</strong></div>
-    </section>
-    <section class="profile-note pitchbook-note">
-      <h2>如何阅读这份讲师手册</h2>
-      <div class="reader-guide">
-        <p>这份长文不是 PPT 的逐字稿，也不是五个项目的展示页。PPT 负责现场节奏和图表表达，长文负责保留讲师讲法、机制解释、反例、课堂练习和课后复盘。</p>
-        <p>英文论文和工程资料已经被消化成中文工作流原则。学员不需要直接读论文；讲师的价值在于把论文、工程经验和业务案例翻译成他们能马上使用的判断框架。</p>
-        <p>阅读顺序建议按七章走：先建立基础词典，再看 Hermes 主案例，然后理解 KAT、Design Team、AIpha、Loki 的辅助证明，最后完成九步工作流画布。</p>
+
+    <section class="hero" aria-label="课程入口">
+      <div>
+        <h1>知识型工作者的 AI 工作流训练课</h1>
+        <p class="lead">面向审计、律师、投行、财务等专业场景。重点不是具体工具操作，而是把 AI 放进证据、状态、质量门、人工复核和持续改进之内。</p>
       </div>
+
+      <nav class="links" aria-label="选择版本">
+        <a class="card" href="longform.html">
+          <em>01</em>
+          <span>
+            <strong>长文讲义</strong>
+            <span>适合备课、复盘和作为讲师手册阅读。</span>
+          </span>
+        </a>
+        <a class="card" href="ppt.html">
+          <em>02</em>
+          <span>
+            <strong>PPT 课件</strong>
+            <span>适合现场授课、横向翻页和投影展示。</span>
+          </span>
+        </a>
+      </nav>
     </section>
-    <section class="module-chapter" id="segment-module-m01-why-tools-are-not-enough">
-      <header class="module-header">
-        <div class="module-index">第 01 章 / 07</div>
-        <h2>第一章：从零开始，AI 工作流不是聊天技巧</h2>
-        <p>建立初学者入口：先讲清 LLM、Prompt、Context、Output Risk，再解释为什么工具教学不足以支撑专业交付。</p>
-      </header>
-      <article class="segment-card" id="segment-seg-01-why-tools-are-not-enough" data-segment-id="seg-01-why-tools-are-not-enough">
-        <div class="segment-meta"><span>讲授主线</span><span>01 / 07</span></div>
-        <h3>本章要解决的问题</h3>
-        <p class="main-message">学习 AI 工作流的第一步不是选择工具，而是建立控制对象：模型、提示词、上下文、工具、工作流、Agent、Harness、质量门和评估各自负责不同风险。</p>
-        <div class="content-blocks">
-          <aside class="content-block callout"><span class="block-label">本章结论</span><p>知识型工作者最容易误判的一点，是把 AI 能力看成一个聊天窗口。聊天窗口只能给候选答案，专业交付还需要来源、权限、步骤、状态、质量门、人工责任和复盘记录。讲师开场要先把“会问 AI”降级为入门动作，把“会设计 AI 工作流”定义为本课程真正要训练的能力。</p></aside>
-          <p class="content-block"><span class="block-label">讲师开场</span>不要先讲五个项目，也不要先讲某个模型。可以从一个常见场景进入：审计、律师、投行或财务人员把材料贴进 AI，得到一段很像结论的文字，但没人能回答事实从哪里来、口径如何锁定、是否越权使用材料、错了由谁发现、最终由谁批准。这一刻，问题已经不是提示词问题，而是工作流问题。</p>
-          <aside class="content-block note-block figure-note"><span class="block-label">层级图解</span><p>最底层是材料和数据，第二层是工具和服务，第三层是模型和 Agent，第四层是工作流和 DAG，第五层是 Harness 运行时，第六层是评估和质量门，最上层才是界面和交付物。PPT 里这张图应该从上到下讲：读者看到的是界面，专业人士要设计的是底层控制。</p></aside>
-          <aside class="content-block note-block table-note"><span class="block-label">术语双译</span><p>LLM 是生成和推理引擎，Prompt 是任务意图，Context 是材料边界，Tool 是可复验动作，Skill 是可复用任务程序，Workflow 是稳定步骤，Agent 是可行动执行者，Harness 是运行时外壳，Eval 是评估账本。每个英文词只作为副标签，中文解释必须先到位。</p></aside>
-          <p class="content-block"><span class="block-label">论文翻译</span>近期 agent / harness 论文提供的是机制语言，不是课堂阅读材料。讲师要把 agent loop 翻译成“观察、行动、检查、停止”，把 structured graph 翻译成“节点、状态、边和失败路径”，把 harness audit 翻译成“全过程可审计”。听众不需要读英文论文，他们需要听到被消化后的工作设计原则。</p>
-          <div class="content-block content-bullet"><span class="bullet-dot" aria-hidden="true"></span><p><span class="block-label">关键区分一</span>一次回答关注输出是否像答案；固定工作流关注步骤是否稳定；Agent 关注中间观察后能否改变行动；Harness 关注全过程是否可控制、可追踪、可复核。越接近正式交付，越不能只评价最后一段文字。</p></div>
-          <div class="content-block content-bullet"><span class="bullet-dot" aria-hidden="true"></span><p><span class="block-label">关键区分二</span>Prompt 只能表达意图，不能自动解决来源、权限、口径和责任。Context 能补充材料，但不能自动判断材料是否可用。Tool 能执行查询或计算，但不能决定何时停止。Harness 才把这些对象合成一个可交付系统。</p></div>
-          <p class="content-block"><span class="block-label">适用边界</span>如果任务只是灵感、标题、会议纪要初稿，一次问答足够；如果任务要进入底稿、合同、问询、投研或财务分析，就必须引入证据入口、结构化输出、质量门和人工复核。课堂上要把两类任务分开，避免把轻量场景的经验迁移到高风险场景。</p>
-          <aside class="content-block callout"><span class="block-label">反例诊断</span><p>一个坏工作流通常长这样：材料入口不锁定，模型自由补事实，工具权限不分级，中间过程不记录，输出没有 Schema，失败后靠人凭感觉重问。让学员指出它在哪一层失控，比讲定义更能建立专业判断。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">白板动作</span><p>画出“输入材料、AI 动作、检查动作、人工批准、最终输出”五个框。再让学员把最近一次 AI 使用填进去。如果某一格填不出来，就说明他们当前不是在设计工作流，而是在赌一次回答。这个练习能让初学者快速进入状态。</p></aside>
-          <aside class="content-block note-block table-note"><span class="block-label">讲师提示</span><p>本章不要展示系统功能，也不要比较 Codex、Kimi、DeepSeek。工具名会把注意力带偏，课程目标是建立一套可迁移语言。你作为讲师的专业性来自边界判断：哪些任务可以自动化，哪些任务必须证据先行，哪些结论只能由人批准。</p></aside>
-          <p class="content-block"><span class="block-label">与 PPT 配合</span>PPT 负责给出大图、术语阶梯和错误示例；长文负责解释为什么这套阶梯重要。现场讲授时，一页图不要讲成术语列表，要讲成一条控制链：谁产生候选，谁提供材料，谁执行动作，谁记录状态，谁判断合格，谁承担责任。</p>
-          <aside class="content-block callout"><span class="block-label">课堂问题</span><p>请学员选一个自己高频任务，判断它现在停在哪一层：一次问答、固定流程、Agent 行动，还是带 Harness 的工作流。再追问：如果结果错了，错误最可能发生在哪一层？</p></aside>
-          <p class="content-block"><span class="block-label">业务迁移</span>审计可以把函证、抽样、差异解释放进这套语言；律师可以把条款识别、风险标注、版本比对放进去；投行可以把问询拆题、证据检索、回复草拟放进去；财务可以把口径清洗、异常解释、管理层汇报放进去。行业不同，但控制对象相同。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">讲师收束</span><p>本章最后一句要把课程定位锁死：AI 的价值不是让专业人士少思考，而是把重复劳动、材料整理、结构化和初步检查收敛成可复核对象，让人的判断停留在更高价值的位置。下一章再进入“如何把一次回答变成可重复任务”。</p></aside>
-          <p class="content-block"><span class="block-label">课后复盘</span>长文读者可以用一个简单表格复盘自己的任务：输入是什么，允许来源是什么，AI 做哪一步，输出格式是什么，质量门检查什么，人工复核看什么，失败时回到哪里。只要这张表写不清，继续优化提示词通常不会带来稳定收益。</p>
-          <aside class="content-block note-block figure-note"><span class="block-label">初学者路线</span><p>先掌握对象词典，再学习任务拆分，然后学习 Agent 权限和工具边界，再学习 Harness 运行时，最后再把证据、评估、治理和交付格式合在一起。不要把 Harness 放在第一课硬讲，否则初学者只会记住一个抽象名词。</p></aside>
-          <aside class="content-block callout"><span class="block-label">本章检查点</span><p>听众离开本章后，应该能解释三句话：AI 回答不是工作流；工作流不是 Agent；Harness 不是更大的 Prompt，而是让模型、工具、状态、证据和人类复核共同工作的运行时控制层。</p></aside>
-          <p class="content-block"><span class="block-label">讲师台本</span>本章前 3 分钟只做一件事：把听众从“我该用哪个工具”拉回“我到底在设计什么工作”。可以请他们把最近一次 AI 使用写在纸上，然后标出输入、模型动作、输出、检查和责任。如果检查和责任写不出来，说明还没有进入工作流。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">常见误区</span><p>初学者会把“上下文给得多”误解为“证据链完整”。上下文只是模型可见材料，证据链还要求来源资格、引用位置、变换过程、验证状态和人工批准。两者不能混同。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">现场图解</span><p>把“聊天窗口”画成一个单点，把“工作流”画成一条带门禁的线，把“Harness”画成包住整条线的外壳。这个三层图能帮助零基础学员理解为什么课程不从工具按钮讲起。</p></aside>
-          <aside class="content-block callout"><span class="block-label">讲师提醒</span><p>不要贬低聊天式使用。聊天是很好的入口，但它不是正式交付的终点。承认聊天的价值，才能更自然地引出为什么专业工作需要更高层的结构。</p></aside>
-          <p class="content-block"><span class="block-label">延伸解释</span>本章可以把“降本增效”拆成两个词。降本来自重复动作被工具化、流程化；增效来自证据、状态和质量门减少返工。两者都不是单纯让模型写得更快。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">结尾复述</span><p>请学员用自己的话解释四个句子：模型负责生成，工具负责动作，工作流负责顺序，Harness 负责控制。只要能讲清这四句，后面的课程就不会迷路。</p></aside>
-          <p class="content-block"><span class="block-label">深读讲稿</span>这一章真正要训练的是“对象感”。初学者常把 AI 当作一个聪明的同事，所以会自然地把任务、材料、判断和责任都塞进一句请求里。但专业工作不能这样做。讲师要把对象拆开：模型只负责生成候选，提示词只表达意图，上下文只提供可见材料，工具只执行受控动作，工作流只安排步骤，Harness 才负责权限、状态、证据、质量和复核。拆开之后，学员才会发现很多所谓 AI 问题其实是工作设计问题。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">机制补充</span><p>工作流训练的难点不是术语，而是让听众接受“AI 不应该一开始就碰最终结论”。在审计、律师、投行、财务场景中，最终结论承载责任，不能由一个生成模型直接完成。更好的路径是让 AI 先生产中间对象：字段表、差异清单、风险标签、证据索引、待确认问题、草稿版本。中间对象可检查，最终结论才有基础。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">失败模式</span><p>如果听众只学工具技巧，短期会感觉效率提高，长期会遇到三个瓶颈。第一，复杂任务每次都要重新解释，无法复用；第二，输出看似完整但证据不可追踪，无法放心交付；第三，出错后只能重问，不能定位是材料、模型、工具还是流程的问题。本章要把这些失败模式提前讲透。</p></aside>
-          <aside class="content-block callout"><span class="block-label">讲师立场</span><p>不要把课程讲成“AI 可以替代谁”。更专业的表述是：AI 可以承担一部分可结构化、可复验、可迭代的中间工作，让专业人士把时间放在解释、取舍、沟通、批准和责任判断上。这个立场能降低听众防御，也能避免课程被理解为自动化焦虑。</p></aside>
-          <p class="content-block"><span class="block-label">课后作业</span>请学员写下一个最近用 AI 完成的任务，并补全七个字段：任务目标、允许材料、模型动作、工具动作、输出格式、检查方式、人工责任。第二天复盘时，如果他们发现某个字段写不清，就说明那个任务还没有变成工作流。这个作业比要求他们写十个提示词更有长期价值。</p>
-          <p class="content-block"><span class="block-label">现场讲授脚本</span>这一章建议采用“先承认、再升级”的语气。先承认听众用聊天窗口写摘要、改措辞、做初稿是有效的；再指出一旦进入审计底稿、法律意见、问询回复、财务汇报，问题就不再是回答是否顺滑，而是来源、口径、复核和责任是否存在。这个转折能让听众觉得课程不是否定他们的经验，而是在帮助他们升级。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">Q&amp;A 准备</span><p>如果有人问“是不是只要模型足够强就不用工作流”，可以回答：模型强会提高候选答案质量，但不会自动解决来源资格、权限控制、过程留痕、人工批准和长期复盘。模型能力和工作流治理是两条线，专业工作必须同时处理。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">板书建议</span><p>在白板左边写“聊天：输入、回答”，右边写“工作流：来源、节点、状态、质量门、复核、评估”。让学员直观看到，工作流不是把聊天变复杂，而是把原来隐藏在专业人员脑子里的判断显性化。</p></aside>
-          <aside class="content-block callout"><span class="block-label">落地检查表</span><p>本章结束后，学员要能检查一个 AI 任务是否具备五个元素：明确来源、明确动作、明确输出、明确检查、明确责任。少一个元素，就还不能进入正式交付。</p></aside>
-        </div>
-<aside class="source-notes"><strong>参考依据</strong><ul><li>Harness 开发学习手册：术语、分层框架和初学路线</li><li>2026 年后 agent loop / structured graph / harness 论文筛选</li><li>课程定位 brief：面向知识型工作者，不做工具品牌教程</li></ul></aside>
-      </article>
-    </section>
-    <section class="module-chapter" id="segment-module-m02-hermes-workflow">
-      <header class="module-header">
-        <div class="module-index">第 02 章 / 07</div>
-        <h2>第二章：Tool、Skill、Workflow/DAG，把临时问答变成可审计步骤</h2>
-        <p>讲清 Tool、Skill、Workflow/DAG 的边界，让学员理解可重复任务如何从临时问答升级为可审计步骤。</p>
-      </header>
-      <article class="segment-card" id="segment-seg-02-hermes-workflow" data-segment-id="seg-02-hermes-workflow">
-        <div class="segment-meta"><span>讲授主线</span><span>02 / 07</span></div>
-        <h3>本章要解决的问题</h3>
-        <p class="main-message">本章讲清 Tool、Skill、Workflow/DAG 的边界：Tool 执行可复验动作，Skill 固化业务 SOP，Workflow/DAG 安排顺序、状态和失败路径，让临时问答升级为可重复、可审计的步骤。</p>
-        <div class="content-blocks">
-          <aside class="content-block callout"><span class="block-label">本章结论</span><p>可重复任务不是把同一句 Prompt 保存起来，而是把任务拆成 Tool、Skill、Workflow/DAG 三层。Tool 做确定动作，Skill 固化一类业务能力，Workflow/DAG 决定节点顺序、状态转移和失败路径。只有这三层清楚，AI 才能从临时问答进入可审计步骤。</p></aside>
-          <p class="content-block"><span class="block-label">讲师切入</span>让学员回忆一个每周都会重复做的任务，比如合同条款核对、费用异常解释、问询问题拆解、审计底稿整理。先问他们现在是不是每次都重新描述需求、重新找材料、重新判断结果。只要答案是肯定的，就说明任务还停留在聊天阶段。</p>
-          <aside class="content-block note-block figure-note"><span class="block-label">结构图</span><p>Tool 是单个动作，如查找、计算、抽取、比对、渲染；Skill 是一套可复用动作组合，如合同风险识别、财务口径核对、问询拆题；Workflow/DAG 是节点之间的依赖关系，如先确认来源，再抽取字段，再校验口径，再生成候选输出。</p></aside>
-          <aside class="content-block note-block table-note"><span class="block-label">中文转译</span><p>Tool 可以讲成“可复验工具”，Skill 可以讲成“业务技能程序”，Workflow/DAG 可以讲成“有方向的任务流程图”。这三个词不需要技术化解释，重点是让学员理解每一层解决的风险不同。</p></aside>
-          <p class="content-block"><span class="block-label">为什么 DAG 重要</span>专业任务往往有前后依赖。来源没确认，不能抽取；字段没完整，不能比对；比对没通过，不能草拟；草拟缺引用，不能复核。DAG 把这些依赖显性化，让 AI 不再靠上下文记忆隐含顺序。</p>
-          <div class="content-block content-bullet"><span class="bullet-dot" aria-hidden="true"></span><p><span class="block-label">边界判断</span>如果一个动作可以单独执行并复验，它更像 Tool；如果一组动作解决某类业务问题，它更像 Skill；如果多个节点有先后关系、状态和退回路径，它就是 Workflow/DAG。</p></div>
-          <p class="content-block"><span class="block-label">Hermes 作为例子</span>Hermes 可以在本章出现，但只说明任务流水线。讲师可以抽象地说，披露或问询工作要先确定来源，再结构化材料，再设置质量门，再人工复核。不要展开具体客户、具体文件或系统功能。</p>
-          <aside class="content-block callout"><span class="block-label">反例诊断</span><p>把“请帮我审合同”保存成模板，不等于工作流。它没有来源清单、没有条款抽取结构、没有风险分类规则、没有质量门、没有律师复核边界。最多只是一个复用 Prompt。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">课堂练习</span><p>让学员选一个高频任务，列出 5 个节点，并标记每个节点属于 Tool、Skill 还是 Workflow 控制。然后要求写出每个节点的通过条件和退回条件。</p></aside>
-          <p class="content-block"><span class="block-label">讲师专业性</span>本章要把“效率”讲得克制。效率不是让 AI 越过中间步骤，而是让中间步骤变成可复用节点。越是专业场景，越要让步骤显性化，因为显性步骤才有可能被检查、分派、优化和复盘。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">论文消化</span><p>From Agent Loops to Structured Graphs 的可讲版本是：自由 loop 在复杂任务中会把历史和依赖藏进上下文，结构化图则把它们变成节点、边和状态。学员不需要知道论文细节，只要知道为什么“流程图”比“多轮追问”更适合正式工作。</p></aside>
-          <p class="content-block"><span class="block-label">岗位迁移</span>审计可以把核查程序变成 DAG；律师可以把合同审阅变成条款抽取、风险标注、修改建议和复核；投行可以把问询回复变成拆题、证据、口径、草稿和审阅；财务可以把管理分析变成取数、清洗、异常解释和汇报。</p>
-          <aside class="content-block callout"><span class="block-label">本章收束</span><p>如果一项任务不能拆成可执行节点，就不要急着引入 Agent。先把 Tool、Skill、Workflow/DAG 画清楚，再决定哪一步需要模型参与、哪一步必须由人复核。</p></aside>
-          <p class="content-block"><span class="block-label">讲师台本</span>本章可以先用 5 分钟把 Tool、Skill、Workflow/DAG 三层讲清，再用 5 分钟让学员把一个任务拆节点，最后用 3 分钟提示 Hermes 的任务流水线只是案例。这样不会让主线被项目吞掉。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">常见误区</span><p>保存一个 Prompt 模板不是 Skill。Skill 必须包含输入要求、动作步骤、输出结构、失败条件和复核方式。如果只有一句提示词，它仍然依赖人的临场补充。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">流程边界</span><p>DAG 的关键不是画得复杂，而是能表达“未通过就不能进入下一步”。一个三节点流程如果通过和退回条件清楚，就比十几个模糊节点更专业。</p></aside>
-          <aside class="content-block callout"><span class="block-label">岗位提示</span><p>不要从最复杂的任务开始做 workflow。先选一个低风险、材料清楚、步骤稳定、错误容易发现的流程，跑通节点、状态和质量门，再逐步扩大范围。</p></aside>
-          <p class="content-block"><span class="block-label">课堂追问</span>如果把这个任务拆成节点，哪一步最适合 AI？哪一步最不适合 AI？哪一步即使 AI 做了，也必须由人复核？这三个问题能防止学员一上来追求全自动。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">讲师收束</span><p>本章结束时，学员应该能分清“工具执行动作、技能复用方法、工作流组织顺序”。如果这个边界不清，后面谈 Agent 和 Harness 会变成抽象口号。</p></aside>
-          <p class="content-block"><span class="block-label">深读讲稿</span>Tool、Skill、Workflow/DAG 这一章要避免讲成技术架构课。更好的讲法是从“重复工作为什么仍然重复”开始。很多团队每周都在做同类工作，但因为没有把动作拆成节点，没有把节点变成技能，没有把技能放进流程，所以每次都靠人的记忆重新拼装。AI 介入后，如果结构仍然缺失，只会让重复劳动变成重复提示。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">机制补充</span><p>Tool 的判断标准是能否被复验，Skill 的判断标准是能否被复用，Workflow/DAG 的判断标准是能否表达依赖和退回。讲师可以让听众用这三个问题检查自己的流程：这个动作执行后能不能复验？这组动作下次能不能复用？某一步失败时流程知道回到哪里吗？三个问题都能回答，才算从临时问答进入可审计步骤。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">失败模式</span><p>很多 AI 项目失败在“流程图缺失”。团队只写了一个最终目标，例如“生成报告”“审阅合同”“分析费用”，但没有定义中间节点。模型于是一次性输出完整文本，所有风险都被压在最终文本里。等人发现问题时，已经不知道该改来源、改节点、改工具、改口径还是改表达。DAG 的价值就是把返工位置提前暴露。</p></aside>
-          <aside class="content-block callout"><span class="block-label">Hermes 的正确使用</span><p>Hermes 可以作为本章的主例子之一，但讲师要坚持抽象。它说明披露、问询、底稿这类任务必须经过来源确认、结构化、比对、质量门和人工复核。不要把案例讲成系统演示，而要让听众看到他们自己的任务也可以按同样方式拆。</p></aside>
-          <p class="content-block"><span class="block-label">课后作业</span>请学员选择一个本周会重复发生的任务，用三列表格写清 Tool、Skill、Workflow。第一列列动作，第二列写哪些动作可以沉淀成 Skill，第三列画出节点顺序和退回路径。作业不要求自动化，只要求流程清楚。流程清楚后，后续是否引入 Agent 才有判断基础。</p>
-          <p class="content-block"><span class="block-label">现场讲授脚本</span>这一章建议把高频任务拿出来现场拆。比如“根据合同找出风险条款”，不要直接问 AI，而是拆成版本确认、条款抽取、风险分类、依据引用、修改建议、人工确认六个节点。拆完后再问哪一步是 Tool、哪一步是 Skill、哪一步是 Workflow 控制。听众会立刻理解三层边界。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">Q&amp;A 准备</span><p>如果有人问“我不会画 DAG 怎么办”，可以回答：DAG 不一定是技术图。用表格列出步骤、前置条件、通过条件、失败退回，也是在做 DAG。初学阶段先用业务语言把依赖关系写清楚，技术实现可以以后再说。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">板书建议</span><p>画一条从“材料入口”到“最终输出”的横线，在每个节点下写两个小字：通过、退回。强调每个节点都要能说清通过条件和退回路径。这个动作能让流程从漂亮图变成可审计步骤。</p></aside>
-          <aside class="content-block callout"><span class="block-label">落地检查表</span><p>一个合格 Workflow 至少要有节点清单、输入输出、状态、通过条件、退回条件、责任人和记录方式。只有节点，没有条件；只有条件，没有记录；只有记录，没有责任，都不算完整。</p></aside>
-        </div>
-<aside class="source-notes"><strong>参考依据</strong><ul><li>Harness 开发学习手册：Tool、Skill、Workflow/DAG 的边界</li><li>From Agent Loops to Structured Graphs：从自由循环转向结构化图</li><li>Hermes 脱敏经验：作为任务流水线的业务例子，不作为整章展示页</li></ul></aside>
-      </article>
-    </section>
-    <section class="module-chapter" id="segment-module-m03-kat-artifact-engineering">
-      <header class="module-header">
-        <div class="module-index">第 03 章 / 07</div>
-        <h2>第三章：Agent 是什么：角色、Skills、Tools、输出格式和停止条件</h2>
-        <p>拆解 Agent 的最小可控结构：角色、Skills、Tools、output schema、guardrails、停止条件和复核边界。</p>
-      </header>
-      <article class="segment-card" id="segment-seg-03-kat-artifact-engineering" data-segment-id="seg-03-kat-artifact-engineering">
-        <div class="segment-meta"><span>讲授主线</span><span>03 / 07</span></div>
-        <h3>本章要解决的问题</h3>
-        <p class="main-message">本章拆解 Agent 的最小可控结构：角色负责目标和边界，Skills 与 Tools 决定可执行能力，output schema 限定输出形状，guardrails、停止条件和人工复核控制风险。</p>
-        <div class="content-blocks">
-          <aside class="content-block callout"><span class="block-label">本章结论</span><p>Agent 不是更会聊天的模型，而是一个带角色、能力、工具权限、输出格式、guardrails、停止条件和复核边界的执行者。没有这些边界，所谓 Agent 只是一个更自由、更难审计的聊天窗口。</p></aside>
-          <p class="content-block"><span class="block-label">讲师切入</span>可以先问学员：你希望 AI 帮你做事，还是希望 AI 自己决定做什么？专业工作通常只能接受前者。Agent 的价值是按既定任务行动，而不是无限扩张目标。角色定义的第一句话就应该说明它不能做什么。</p>
-          <aside class="content-block note-block figure-note"><span class="block-label">Agent 最小结构</span><p>目标、角色、输入、允许 Skills、允许 Tools、输出 Schema、质量门、停止条件、人工接管点。PPT 可以画成一个 Agent 身份证，让学员看到“一个能用的 Agent”必须被这些字段约束。</p></aside>
-          <aside class="content-block note-block table-note"><span class="block-label">术语双译</span><p>role 是角色边界，skill 是业务技能，tool 是可复验动作，output schema 是输出格式，guardrail 是护栏，termination 是停止条件，human-in-the-loop 是人工介入。所有英文词都要跟中文解释，不让初学者被框架名吓住。</p></aside>
-          <p class="content-block"><span class="block-label">输出格式</span>知识工作中，Agent 的输出不应只是自然语言。它可以输出表格、字段、风险标签、证据链接、待确认事项、草稿和复核建议。结构化输出让后续节点能检查，也让人工复核有抓手。</p>
-          <div class="content-block content-bullet"><span class="bullet-dot" aria-hidden="true"></span><p><span class="block-label">权限设计</span>一个 Agent 不应该默认拥有所有工具。能查哪些库，能写哪些文件，能不能访问外部网页，能不能修改产物，能不能触发发布，都要在 Harness 中被限制。工具权限是风险边界，不是功能清单。</p></div>
-          <p class="content-block"><span class="block-label">KAT 作为例子</span>KAT 中的 Agent 可以负责 brief 整理、证据映射、claim 检查、内容规格、故事板或局部修复。但每个 Agent 都被 artifact、module、segment、schema 和 QA 限制，不允许在最终输出里自行新增未经支持的事实。</p>
-          <aside class="content-block callout"><span class="block-label">反例诊断</span><p>一个坏 Agent 常见症状是目标过宽、工具过多、输出随意、没有停止条件、失败后继续猜、无法解释用了哪些材料。它看起来聪明，但很难进入正式工作。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">停止条件图</span><p>来源缺失、权限不足、输出不合规、风险门触发、证据冲突、任务目标变化，都应该让 Agent 停止或升级人工。停止不是失败，而是专业工作流对风险的识别能力。</p></aside>
-          <p class="content-block"><span class="block-label">讲师专业性</span>本章要把 Agent 的想象空间收回来。不要讲“全自动员工”，要讲“受控执行者”。越是面向审计、律师、投行、财务，越要强调 Agent 的边界、证据和复核。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">论文消化</span><p>官方 agent run loop 和 tool iteration 的资料可以转译为“模型提出行动、工具执行、环境返回结果、模型继续判断、直到满足退出条件”。课堂不需要代码实现，只需要把 loop 中每一步对应到业务风险。</p></aside>
-          <p class="content-block"><span class="block-label">岗位迁移</span>审计 Agent 可以抽取底稿字段但不能出具审计判断；律师 Agent 可以标注风险但不能替代律师意见；投行 Agent 可以拆题和找证据但不能决定回复策略；财务 Agent 可以做异常解释候选但不能改正式口径。</p>
-          <aside class="content-block callout"><span class="block-label">本章收束</span><p>能进入专业工作的 Agent，不是最自由的 Agent，而是最清楚知道自己边界的 Agent。角色、工具、输出、停止和复核定义越清楚，Agent 越能被信任。</p></aside>
-          <p class="content-block"><span class="block-label">讲师台本</span>本章不要把 Agent 讲成科幻角色。先把它拆成一张身份证：角色、目标、可用 Skill、可用 Tool、输出格式、停止条件、人工复核。学员看到这张身份证，就能判断一个 Agent 是否适合进入专业工作。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">常见误区</span><p>多个 Agent 不一定更可靠。如果每个 Agent 都没有来源边界、工具权限和停止条件，多 Agent 只会让错误更难定位。角色分工必须服务于检查，不是服务于表演。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">输出结构</span><p>把自然语言输出改成结构化输出，是 Agent 可控化的关键。比如输出“风险等级、依据、引用、待确认事项、建议动作”，比输出一段完整意见更容易被复核。</p></aside>
-          <aside class="content-block callout"><span class="block-label">岗位提示</span><p>为每个 Agent 写一句禁止事项。例如“不得形成最终法律意见”“不得修改正式财务口径”“不得发布对外材料”“不得使用未授权来源”。禁止事项通常比能力清单更能保护边界。</p></aside>
-          <p class="content-block"><span class="block-label">课堂追问</span>这个 Agent 什么时候必须停？谁能让它继续？它输出后谁负责解释？如果三个问题回答不清，就不要把它放进高风险任务。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">讲师收束</span><p>Agent 的成熟度不看它会不会主动做更多事，而看它能不能在正确边界内做事、留下过程、输出可检查对象，并在该停的时候停。</p></aside>
-          <p class="content-block"><span class="block-label">深读讲稿</span>Agent 这一章要把“自主性”讲得有边界。很多宣传会把 Agent 描述成能主动规划、主动调用工具、主动完成任务的数字员工，但知识型工作者真正需要的是受控执行者。讲师要反复强调：越是正式工作，Agent 越要被角色、权限、输出格式、停止条件和人工复核约束。没有约束的自主性不是能力，是风险。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">机制补充</span><p>一个 Agent 的设计可以从反向问题开始：它不能看什么，不能调用什么，不能写什么，不能决定什么，不能发布什么。先写禁止事项，再写能力事项，能让专业边界更清楚。比如合同审阅 Agent 可以标风险，但不能形成最终法律意见；财务分析 Agent 可以解释异常，但不能修改正式口径；投行资料 Agent 可以拆题和找证据，但不能决定回复策略。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">失败模式</span><p>常见失败不是 Agent 不够聪明，而是它太自由。自由搜索会引入不合格来源，自由写入会破坏原始材料，自由重试会掩盖失败原因，自由总结会把假设写成事实。讲师要让学员知道，Agent 的边界不是为了限制效率，而是为了让效率能够进入正式工作。</p></aside>
-          <aside class="content-block callout"><span class="block-label">KAT 的正确使用</span><p>KAT 在本章只是说明 Agent 如何服务结构化产物生产。一个 Agent 可以负责证据映射，另一个负责 claim 检查，另一个负责内容规格或局部修复。但每个 Agent 都必须消费落盘中间产物，并接受 schema、证据、QA 和 renderer 边界约束。</p></aside>
-          <p class="content-block"><span class="block-label">课后作业</span>请学员设计一个 Agent 身份证，字段包括角色、目标、输入、允许工具、禁止工具、输出 Schema、停止条件、人工复核点和责任边界。要求他们先写禁止项，再写能力项。这个顺序能让 Agent 从“想象中的助手”变成“可管理的执行者”。</p>
-          <p class="content-block"><span class="block-label">现场讲授脚本</span>讲 Agent 时可以先让学员说出他们最想让 AI 自动做什么。通常答案会很大，比如“自动写报告”“自动审合同”。你可以把答案压缩成一个 Agent 身份证：它的角色是什么，能用哪些工具，输出什么结构，什么时候停，谁来复核。这个过程本身就是从愿望到工程的转换。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">Q&amp;A 准备</span><p>如果有人问“Agent 可不可以自己规划所有步骤”，可以回答：可以在低风险探索中尝试，但正式工作必须把可接受行动和停止条件写清楚。自主规划不是不能用，而是不能越过证据、权限、质量门和人工批准。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">板书建议</span><p>画一个 Agent 方框，左边写输入和允许来源，右边写结构化输出，上方写角色和目标，下方写停止条件和人工复核。这个图能把 Agent 从拟人化想象拉回受控执行结构。</p></aside>
-          <aside class="content-block callout"><span class="block-label">落地检查表</span><p>设计 Agent 前先回答七个问题：目标是什么，输入来自哪里，能用哪些 Skill，能调用哪些 Tool，输出 Schema 是什么，何时必须停止，谁负责最终判断。</p></aside>
-        </div>
-<aside class="source-notes"><strong>参考依据</strong><ul><li>Harness 开发学习手册：Agent、Tool、Skill、Workflow 的边界</li><li>OpenAI / LangChain / AutoGen 官方资料：agent loop、tool iteration、termination</li><li>KAT 脱敏经验：作为结构化产物生产中的 Agent 任务例子</li></ul></aside>
-      </article>
-    </section>
-    <section class="module-chapter" id="segment-module-m04-design-team-delivery-quality">
-      <header class="module-header">
-        <div class="module-index">第 04 章 / 07</div>
-        <h2>第四章：Harness 是什么：运行时、权限、状态、日志、证据和质量门</h2>
-        <p>从运行时角度讲清 Harness 管权限、状态、日志、证据、质量门、审批、产物和复盘，而不是只把 Agent 连在一起。</p>
-      </header>
-      <article class="segment-card" id="segment-seg-04-design-team-delivery-quality" data-segment-id="seg-04-design-team-delivery-quality">
-        <div class="segment-meta"><span>讲授主线</span><span>04 / 07</span></div>
-        <h3>本章要解决的问题</h3>
-        <p class="main-message">本章从运行时角度讲清 Harness：它管理权限、状态、日志、证据、质量门、审批、产物和复盘，不是把 Agent 连起来，而是让 AI 工作过程可控制、可观察、可修复。</p>
-        <div class="content-blocks">
-          <aside class="content-block callout"><span class="block-label">本章结论</span><p>Harness 是 AI 工作流的运行时外壳。它不等于一个 Agent，也不等于一串 prompt，而是把权限、状态、日志、证据、质量门、审批、产物和复盘组织起来，让 AI 的行动过程可以被控制、观察、审计和修复。</p></aside>
-          <p class="content-block"><span class="block-label">讲师切入</span>如果说 Agent 是执行者，Harness 就是工作场地、制度和记录系统。一个执行者再强，如果没有材料边界、权限管理、过程记录和质量检查，也不能进入正式交付。这个类比能帮助初学者理解 Harness 的必要性。</p>
-          <aside class="content-block note-block figure-note"><span class="block-label">七层结构</span><p>治理、数据、工具服务、智能层、工作流、能力、界面。讲授时要从上到下看用户体验，再从下到上看控制责任：界面只是入口，真正决定可靠性的，是治理、数据、工具、状态和质量门。</p></aside>
-          <p class="content-block"><span class="block-label">状态管理</span>Harness 要知道任务在哪里。已接收、待取数、已抽取、待校验、冲突、需人工、已批准、已归档，这些状态让团队能定位卡点。没有状态，AI 工作流会退回私人工具和聊天记录。</p>
-          <p class="content-block"><span class="block-label">日志和轨迹</span>专业场景不能只保存最终回答。要保存输入、上下文、工具调用、输出、检查结果、失败原因和人工处理。这样结果出问题时，团队能知道是来源错、工具错、模型错、流程错还是人类审批错。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">论文消化</span><p>AI Harness Engineering 所说的 episode package，可以翻译成“每次运行的工作底稿包”。它记录任务、上下文、工具、步骤、验证和失败归因。对知识型工作者来说，这就是 AI 时代的过程证据。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">质量门</span><p>质量门要前置到关键节点，而不是最后看一眼。来源未确认不能抽取，字段不完整不能比对，证据冲突不能草拟，输出缺引用不能进入复核，风险门触发必须停止。</p></aside>
-          <div class="content-block content-bullet"><span class="bullet-dot" aria-hidden="true"></span><p>NERO Design Team 作为例子：它不是内容系统，而是交付质量 Harness。设计合同、视觉 QA、visual score、production check 负责保证 PPT 和 HTML 能被看懂、能投影、能讲授、能交付。</p></div>
-          <p class="content-block"><span class="block-label">审批边界</span>Harness 不是让 AI 自动批准自己。审批点要明确谁负责、看什么材料、在什么条件下通过、在什么条件下退回。专业工作中，最终责任不能被模型吸收。</p>
-          <aside class="content-block callout"><span class="block-label">反例诊断</span><p>把多个 Agent 串起来，不等于 Harness。没有权限、状态、日志、质量门和人工接管的串联，只是更复杂的黑盒。复杂度增加了，控制力却没有增加。</p></aside>
-          <p class="content-block"><span class="block-label">讲师专业性</span>本章要把技术概念翻译成制度语言。审计听的是底稿和复核，律师听的是权限和责任，投行听的是证据链和审批，财务听的是口径和留痕。Harness 正好把这些制度要求放到 AI 工作流里。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">交付质量边界</span><p>本课程的 PPT 返工就是 Harness 思想的例子。发现设计思路露出、图表看不懂、英文未双译、章节不清，就进入 issue_router 和 local_repair，而不是重写全部内容。</p></aside>
-          <aside class="content-block callout"><span class="block-label">本章收束</span><p>Harness 的核心问题不是“AI 能不能做”，而是“AI 做的过程能不能被组织、记录、阻断、审查和改进”。这是专业工作采用 AI 的真正门槛。</p></aside>
-          <p class="content-block"><span class="block-label">讲师台本</span>本章可以用“执行者”和“工作制度”的比喻讲 Harness。Agent 像执行者，Harness 像制度、场地、记录和审批。没有制度的执行者不能进入正式工作，这是所有知识型岗位都能理解的逻辑。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">常见误区</span><p>把自动化链路做长，不等于有 Harness。Harness 必须能回答权限、状态、日志、证据、质量门、审批和复盘；如果这些问题没人管，再长的链路也只是放大的黑盒。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">质量门示例</span><p>质量门可以是 schema 校验、证据引用校验、数字一致性校验、敏感材料边界校验、视觉投影校验、人工批准校验。不同场景使用不同门，但每道门都要能通过或退回。</p></aside>
-          <aside class="content-block callout"><span class="block-label">岗位提示</span><p>任何准备进入正式工作的 AI 流程，都要先问：它有没有状态？有没有日志？有没有退回路径？有没有人工接管？如果没有，就还只是实验，不是生产流程。</p></aside>
-          <p class="content-block"><span class="block-label">课堂追问</span>你所在团队最缺哪一种 Harness 能力：权限、状态、证据、质量门、审批还是复盘？让学员选一个缺口，比让他们泛泛讨论“AI 风险”更有行动性。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">讲师收束</span><p>Harness 不是技术炫耀，而是把专业工作原本就需要的制度要求，嵌入 AI 工作过程。它让 AI 可以被管理，而不是只被试用。</p></aside>
-          <p class="content-block"><span class="block-label">深读讲稿</span>Harness 这一章要把抽象概念讲成专业工作制度。审计、律师、投行、财务本来就熟悉制度、底稿、复核、审批、留痕和责任。Harness 只是把这些要求嵌进 AI 工作流：谁能访问材料，任务处于什么状态，过程留下什么日志，什么条件必须退回，谁最终批准，错误如何复盘。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">机制补充</span><p>Harness 的核心不是“让 Agent 跑起来”，而是“让 Agent 跑在可治理环境里”。同一个 Agent，如果运行在没有证据、没有日志、没有质量门的环境里，只能产生不可控输出；如果运行在有来源、状态、工具边界、质量门和人工接管的环境里，它就能成为专业流程的一部分。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">失败模式</span><p>没有 Harness 的自动化会产生五类黑盒：材料黑盒，不知道用了什么；工具黑盒，不知道做过什么；状态黑盒，不知道任务卡在哪里；质量黑盒，不知道为什么通过；责任黑盒，不知道谁批准。讲师可以用这五个黑盒解释为什么很多 AI 演示看起来漂亮，却进不了生产。</p></aside>
-          <aside class="content-block callout"><span class="block-label">Design Team 的正确使用</span><p>NERO Design Team 在本章只证明交付质量也能被 Harness 化。它检查投影可读性、章节结构、图表表达、生产完整性和输出资产，不负责新增事实，也不替代内容判断。这个例子可以帮助听众理解 Harness 不只管数据和 Agent，也管最终交付。</p></aside>
-          <p class="content-block"><span class="block-label">课后作业</span>请学员为自己的一个 AI 流程写出最小 Harness 清单：权限、状态、日志、证据、质量门、审批、产物、复盘。每一项只写一句话。写不出来的项就是他们下一步要补的治理缺口。</p>
-          <p class="content-block"><span class="block-label">现场讲授脚本</span>Harness 这一章可以用“没有工作制度的聪明员工”作比喻。聪明员工如果随便拿材料、随便改文件、不写记录、不知道谁审批，团队也不能把正式工作交给他。AI 也是一样。Harness 就是把材料制度、权限制度、记录制度和复核制度接到 AI 流程上。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">Q&amp;A 准备</span><p>如果有人问“这是不是太重了”，可以回答：Harness 可以轻量开始。一个共享来源表、一个状态表、一个检查清单、一个人工批准点，就已经比纯聊天强。关键不是一开始建大系统，而是让控制对象存在。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">板书建议</span><p>画一个外壳包住 Agent 和 Workflow，在外壳上标权限、状态、日志、证据、质量门、审批、复盘。强调 Harness 不是流程的某一步，而是包住全过程的控制层。</p></aside>
-          <aside class="content-block callout"><span class="block-label">落地检查表</span><p>最小 Harness 应包含来源白名单、工具权限、状态记录、过程日志、质量门、人工接管、最终审批和复盘字段。缺什么，就优先补什么。</p></aside>
-        </div>
-<aside class="source-notes"><strong>参考依据</strong><ul><li>Harness 开发学习手册：七层目标架构和质量门</li><li>AI Harness Engineering / Harness Audit：运行时、episode package、全过程审计</li><li>NERO Design Team 脱敏经验：作为交付质量 Harness 的业务例子</li></ul></aside>
-      </article>
-    </section>
-    <section class="module-chapter" id="segment-module-m05-aipha-knowledge-compounding">
-      <header class="module-header">
-        <div class="module-index">第 05 章 / 07</div>
-        <h2>第五章：事实驱动架构：证据库、数据服务、MCP 和治理边界</h2>
-        <p>讲清证据库、财务湖仓、案例库、示范库、MCP/Data Service、权限过滤和数据血缘如何支撑可复核输出。</p>
-      </header>
-      <article class="segment-card" id="segment-seg-05-aipha-knowledge-compounding" data-segment-id="seg-05-aipha-knowledge-compounding">
-        <div class="segment-meta"><span>讲授主线</span><span>05 / 07</span></div>
-        <h3>本章要解决的问题</h3>
-        <p class="main-message">本章讲清事实驱动架构：证据库、财务湖仓、案例库、示范库、MCP/Data Service、权限过滤和数据血缘如何支撑可复核输出，并用 AIpha 说明知识复利。</p>
-        <div class="content-blocks">
-          <aside class="content-block callout"><span class="block-label">本章结论</span><p>专业 AI 工作流必须事实驱动。事实、数字、来源、权限和血缘应尽量由确定性数据层管理，LLM 主要负责表达、综合、解释和候选判断。没有事实层，AI 输出越流畅，风险越难发现。</p></aside>
-          <p class="content-block"><span class="block-label">讲师切入</span>很多 AI 使用失败，不是因为模型不会写，而是因为材料边界混乱。公开网页、本地底稿、客户资料、历史案例、人工记忆、模型猜测混在一起，最后很难知道哪一句可以进入正式交付。事实驱动架构就是先把来源分层。</p>
-          <aside class="content-block note-block figure-note"><span class="block-label">数据分层</span><p>证据库保存可引用材料，财务湖仓保存结构化数字，案例库保存脱敏经验，示范库保存优秀产物，MCP/Data Service 提供受控访问，权限过滤决定谁能读写，数据血缘记录来源和变换路径。</p></aside>
-          <p class="content-block"><span class="block-label">事实层和表达层分离</span>数字、时间、主体、合同、财务口径等应来自受控数据源；模型可以把事实组织成解释，但不应凭空补事实。讲师要反复强调：事实确定性越高，AI 表达才越有价值。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">中文转译</span><p>MCP/Data Service 可以讲成“让 AI 通过受控接口取材料”，不是让模型随便翻电脑。数据血缘可以讲成“每个结论能倒查到来源和处理过程”。这些词要用业务语言讲清。</p></aside>
-          <p class="content-block"><span class="block-label">权限过滤</span>不是所有材料都能给所有 Agent，也不是所有 Agent 都能写回数据层。读权限、写权限、导出权限、发布权限必须分开。对金融、法律、审计和财务场景，这一点比模型能力更重要。</p>
-          <aside class="content-block note-block figure-note"><span class="block-label">AIpha 作为例子</span><p>AIpha 只用来讲知识复利。Fact Store 管事实，Mapping Ledger 管映射，Feature Store 管可计算特征，Research Ledger 管假设，Evaluation Ledger 管事后评估。项目不作为投资展示，不进入持仓或交易建议。</p></aside>
-          <aside class="content-block callout"><span class="block-label">反例诊断</span><p>把所有资料塞进长上下文并要求模型总结，不等于事实驱动。它无法稳定处理来源优先级、权限、过期信息、口径冲突和血缘记录。正式工作需要数据服务，而不是更大的粘贴框。</p></aside>
-          <p class="content-block"><span class="block-label">讲师专业性</span>本章要让听众看到你对事实边界的敏感度。你不是教他们让 AI 更会写，而是教他们区分哪些内容必须确定、哪些内容可以生成、哪些内容只能作为假设、哪些内容必须由人批准。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">论文消化</span><p>Closed-loop 研究材料生产可以转译为“筛选、抽取、建模、综合、人工监督和评估”的闭环。讲师读英文资料后输出中文框架，本身就是事实驱动和知识复利的实践。</p></aside>
-          <p class="content-block"><span class="block-label">岗位迁移</span>审计用证据库和底稿血缘保证核查可追溯；律师用条款库和案例库支撑风险识别；投行用问询案例和证据链支撑回复；财务用湖仓和口径表支撑分析。</p>
-          <aside class="content-block callout"><span class="block-label">本章收束</span><p>事实驱动架构的目标不是把一切都数据库化，而是明确事实从哪里来、如何被访问、如何被变换、如何被引用、何时失效、谁能批准。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">课堂练习</span><p>让学员为自己的一个任务画来源地图：正式来源、辅助来源、禁止来源、待验证来源。再标出 AI 可以读哪些、不能读哪些、输出中必须引用哪些。</p></aside>
-          <p class="content-block"><span class="block-label">讲师台本</span>本章要从“资料能不能相信”讲起。先让学员列出自己常用的来源，再标出哪些是正式来源、哪些是辅助线索、哪些只能作为启发。这个动作会自然引出证据库、数据服务和权限过滤。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">常见误区</span><p>把所有资料都放进知识库，不等于知识复利。没有来源等级、更新时间、失效条件和评估记录的知识库，会把错误长期保存下来。复利需要治理，不只是记忆。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">数据血缘图</span><p>一个结论应能倒查到来源、抽取字段、计算规则、模型表达、人工复核和最终输出。只要中间任一环节缺失，就要把结论降级为候选，而不是正式事实。</p></aside>
-          <aside class="content-block callout"><span class="block-label">岗位提示</span><p>如果团队还没有数据服务，可以先用轻量表格建立来源地图和口径表。事实驱动架构不是一开始就建大系统，而是先把来源、权限和口径写清楚。</p></aside>
-          <p class="content-block"><span class="block-label">课堂追问</span>你的任务中哪些内容必须确定性处理，哪些内容可以让模型表达？例如数字必须确定，解释可以候选；合同原文必须确定，风险表述可以草拟。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">讲师收束</span><p>事实驱动架构让 AI 的表达有地基。没有地基，生成能力越强，越容易把不确定内容包装成确定结论。</p></aside>
-          <p class="content-block"><span class="block-label">深读讲稿</span>事实驱动架构这一章要把“知识库”讲得更精确。很多团队以为把文件丢进向量库就拥有知识库，但专业工作需要的不只是检索，而是来源资格、口径一致、权限过滤、更新时间、血缘记录和失效条件。没有这些治理，知识库会把错误以更快速度复用出去。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">机制补充</span><p>事实层和表达层分离，是面向知识型工作者最重要的设计原则之一。事实层保存可验证对象，例如数字、主体、日期、合同条款、底稿引用；表达层负责把事实组织成解释、草稿、摘要和建议。模型可以参与表达层，但事实层必须尽量可复验、可回溯、可更新。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">失败模式</span><p>把所有资料塞进长上下文，会带来三类风险。第一，来源优先级消失，正式材料和辅助线索混在一起；第二，口径冲突被模型自然语言抹平；第三，过期信息被继续引用。事实驱动架构通过来源地图、权限过滤和数据血缘减少这些风险。</p></aside>
-          <aside class="content-block callout"><span class="block-label">AIpha 的正确使用</span><p>AIpha 只作为知识复利案例。它说明事实、映射、特征、研究假设和评估记录要分层沉淀，避免每次研究都从聊天记录开始。不要展开投研结论，不讲持仓，不给交易建议，不展示私有事实库。</p></aside>
-          <p class="content-block"><span class="block-label">课后作业</span>请学员画一个来源地图，分为正式来源、辅助来源、禁止来源、待验证来源。再为每一类写权限：谁能读，谁能写，AI 能不能访问，输出能不能引用。这个作业能把数据治理从抽象要求变成可执行清单。</p>
-          <p class="content-block"><span class="block-label">现场讲授脚本</span>事实驱动架构可以从一个简单问题开始：你的 AI 输出里，哪些句子可以倒查来源？哪些只是模型表达？哪些是人的判断？让学员把三类内容用不同颜色标出来，他们会发现很多材料把事实、表达和判断混在一起。这个练习能自然引出数据源和血缘治理。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">Q&amp;A 准备</span><p>如果有人问“是不是要先建数据库才能开始”，可以回答：不用。第一步可以是来源地图和口径表。把正式来源、辅助来源、禁止来源、待验证来源列清楚，就是最小事实治理。等流程稳定后，再考虑数据库、MCP 或数据服务。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">板书建议</span><p>画三层：事实层、表达层、判断层。事实层要求可验证，表达层允许模型参与，判断层要求人工负责。这个图能让听众理解为什么 AI 可以写得很好，但不能自动承担事实责任。</p></aside>
-          <aside class="content-block callout"><span class="block-label">落地检查表</span><p>每个事实性输出至少回答五个问题：来源是什么，时间是什么，口径是什么，是否可复验，是否允许对外引用。不能回答，就只能作为候选信息。</p></aside>
-        </div>
-<aside class="source-notes"><strong>参考依据</strong><ul><li>Harness 开发学习手册：数据治理、MCP/Data Service、事实层和表达层分离</li><li>AIpha 脱敏经验：Fact Store、Mapping Ledger、Feature Store、Evaluation Ledger</li><li>Closed-loop literature summarization / Self-Harness：长期知识资产和评估账本</li></ul></aside>
-      </article>
-    </section>
-    <section class="module-chapter" id="segment-module-m06-loki-decision-governance">
-      <header class="module-header">
-        <div class="module-index">第 06 章 / 07</div>
-        <h2>第六章：业务案例诊所：五个项目只做辅助证明</h2>
-        <p>把 Hermes、KAT、NERO Design Team、AIpha、Loki 压缩为不超过四分之一篇幅的案例诊所，Hermes 最深但不吞掉课程主线。</p>
-      </header>
-      <article class="segment-card" id="segment-seg-06-loki-decision-governance" data-segment-id="seg-06-loki-decision-governance">
-        <div class="segment-meta"><span>讲授主线</span><span>06 / 07</span></div>
-        <h3>本章要解决的问题</h3>
-        <p class="main-message">本章把 Hermes、KAT、NERO Design Team、AIpha、Loki 压缩为案例诊所：Hermes 最深，但五个项目合计只服务于可迁移方法，不超过课程篇幅的四分之一。</p>
-        <div class="content-blocks">
-          <aside class="content-block callout"><span class="block-label">本章结论</span><p>五个项目不是课程主角，而是案例诊所。它们共同证明 AI 工作流的五个能力：任务流水线、物料工程化、交付质量、知识复利、决策治理。讲师要用项目解释方法，而不是用方法包装项目。</p></aside>
-          <p class="content-block"><span class="block-label">讲师切入</span>可以先明确案例比例：全课程主线是基础概念、工作流设计和九步画布，项目合计不超过四分之一。这样能避免听众误以为课程是在看内部系统演示，也能突出讲师对抽象方法的提炼能力。</p>
-          <aside class="content-block note-block figure-note"><span class="block-label">案例诊所图</span><p>Hermes 对应任务流水线和证据链；KAT 对应 artifact/module/segment 和局部修复；NERO Design Team 对应交付质量 Harness；AIpha 对应知识复利；Loki 对应决策治理和最终批准权。</p></aside>
-          <p class="content-block"><span class="block-label">Hermes 怎么讲</span>只讲主案例的机制，不展示敏感材料。它证明任务如何从材料入口、结构化动作、质量门、例外路径到人工复核。讲师可以强调 Hermes 最深，但深的是工作流机制，不是项目细节。</p>
-          <p class="content-block"><span class="block-label">KAT 怎么讲</span>KAT 证明长物料不能一次生成。它把课程本身拆成可验证阶段，并在 PPT 和长文返工中体现 issue_router 和 local_repair。讲师要把 KAT 翻译成“复杂知识物料的生产线”。</p>
-          <p class="content-block">NERO Design Team 怎么讲：它证明视觉和交付也需要 Harness。设计合同、视觉 QA、评分和 production check 确保内容能被讲授、投影和交付。讲师不要展开内部模板，只讲交付治理。</p>
-          <p class="content-block"><span class="block-label">AIpha 怎么讲</span>AIpha 只讲知识复利，不讲投研结论、持仓、交易建议或私有判断。它证明临时问答可以沉淀成事实、映射、特征、研究和评估账本。</p>
-          <p class="content-block"><span class="block-label">Loki 怎么讲</span>Loki 只讲决策治理。多角色、证据门、风险门、停止条件和最终批准权，说明 AI 可以辅助决策材料生产，但不能替代责任主体。</p>
-          <aside class="content-block callout"><span class="block-label">反例诊断</span><p>如果案例讲成“我有五个系统”，课程就会失焦；如果案例讲成“每个系统证明一种工作流能力”，讲师的专业性就会更强。听众要带走的是能力地图，不是项目清单。</p></aside>
-          <aside class="content-block note-block table-note"><span class="block-label">案例比例控制</span><p>现场可以用一页总图加五张案例诊所卡，每张卡只讲问题、工作流能力、风险边界和可迁移动作。不要进入真实文件、真实客户、真实交易或敏感数据库。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">课堂练习</span><p>让学员把自己的项目或团队流程也放进案例诊所模板：它证明哪一种能力？适用边界是什么？不能展示什么？能迁移给别人什么方法？</p></aside>
-          <p class="content-block"><span class="block-label">讲师专业性</span>本章的关键不是系统多，而是抽象能力强。你要不断把案例往上提炼：Hermes 是流水线，KAT 是物料工程，Design Team 是交付质量，AIpha 是知识复利，Loki 是决策治理。</p>
-          <aside class="content-block callout"><span class="block-label">本章收束</span><p>案例只是证据，方法才是产品。五个项目让课程有真实业务厚度，但最终必须回到下一章的九步工作流画布，让学员能在自己的岗位复用。</p></aside>
-          <p class="content-block"><span class="block-label">讲师台本</span>案例诊所要快而准。每个项目用同一张卡片讲：业务问题、工作流能力、风险边界、可迁移动作。不要逐页展示系统，不要解释内部实现，不要让案例抢走课程主线。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">常见误区</span><p>案例越多不等于越专业。如果听众记住的是五个系统名，而不是五种工作流能力，说明讲法失败。案例必须服务于抽象模型。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">案例卡格式</span><p>左侧写项目名，右侧只放四行：证明什么能力、适用什么场景、不能展示什么、听众可以复用什么。统一格式能防止案例段落变成项目宣传。</p></aside>
-          <aside class="content-block callout"><span class="block-label">岗位提示</span><p>请学员把自己的一个项目也放进案例卡。若他们能提炼出“证明的能力”和“可迁移动作”，说明他们已经开始从项目经验走向方法论。</p></aside>
-          <p class="content-block"><span class="block-label">课堂追问</span>如果把五个案例全部拿掉，课程主线还成立吗？答案必须是成立。案例只是让主线可信，不应成为主线本身。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">讲师收束</span><p>案例诊所的最后一句可以是：这些项目不是你要复制的系统，而是五个证明点，证明 AI 工作流可以覆盖生产、交付、沉淀和治理。</p></aside>
-          <p class="content-block"><span class="block-label">深读讲稿</span>案例诊所这一章的目标是“证明方法”，不是“介绍项目”。讲师可以先把五个项目放在同一张能力地图上，再逐个讲 2-3 分钟。每个案例都用同一结构：原始问题是什么，AI 工作流能力是什么，风险边界是什么，听众能迁移什么。统一结构能避免案例段落失控。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">机制补充</span><p>案例比例控制本身也是专业性。知识型听众通常不关心讲师系统有多少功能，他们关心自己能学到什么方法。五个项目如果分散成五段故事，会降低课程主线；如果压缩成五张诊断卡，就能证明讲师既有实践，也能抽象。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">失败模式</span><p>项目展示页的常见失败是“功能越来越多，方法越来越少”。听众看到截图、流程、按钮和结果，但不知道该如何迁移到自己的工作。案例诊所要反过来：截图和功能可以没有，但能力、边界、迁移动作必须清楚。</p></aside>
-          <aside class="content-block callout"><span class="block-label">Loki 的正确使用</span><p>Loki 只作为决策治理案例，讲多角色、证据门、风险门、停止条件和最终批准权。不要进入真实投资判断、持仓、交易建议或私有结论。它证明的是高风险决策需要治理，而不是证明某个决策系统很强。</p></aside>
-          <p class="content-block"><span class="block-label">课后作业</span>请学员把自己团队的一个项目写成案例诊所卡片：项目名、证明的能力、适用场景、不能展示的内容、可迁移动作、第一道风险门。这个作业能训练他们把经验沉淀成方法，而不是沉淀成宣传材料。</p>
-          <p class="content-block"><span class="block-label">现场讲授脚本</span>案例诊所要采用“问题、能力、边界、迁移”的四句法。每个项目不超过两分钟：它原来解决什么问题，证明哪一种 AI 工作流能力，不能展示或不能自动化什么，听众可以迁移什么。讲师要像医生看病例一样讲案例，而不是像产品经理演示功能。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">Q&amp;A 准备</span><p>如果有人问“能不能多讲一个项目细节”，可以回答：可以课后交流，但课堂主线必须保持可迁移。今天不是复制我的系统，而是学会从系统里抽象出自己的工作流方法。这个回答能把注意力拉回课程目标。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">板书建议</span><p>画五个小卡片，分别写 Hermes、KAT、Design Team、AIpha、Loki；每张卡只写一个能力词。任务流水线、物料工程、交付质量、知识复利、决策治理。卡片越简洁，案例越不容易喧宾夺主。</p></aside>
-          <aside class="content-block callout"><span class="block-label">落地检查表</span><p>任何案例进入课堂前，都要检查是否满足四个条件：已脱敏，不暴露私有结论，不替代主线，能提炼可迁移动作。不满足就不要讲。</p></aside>
-        </div>
-<aside class="source-notes"><strong>参考依据</strong><ul><li>用户约束：五个项目只作为实际业务场景辅助讲解，不做项目展示页</li><li>Hermes / KAT / NERO Design Team / AIpha / Loki 脱敏规则</li><li>FinHarness / Harness Audit / multi-agent workflow：案例背后的风险门禁和治理逻辑</li></ul></aside>
-      </article>
-    </section>
-    <section class="module-chapter" id="segment-module-m07-transferable-ai-workflow-model">
-      <header class="module-header">
-        <div class="module-index">第 07 章 / 07</div>
-        <h2>第七章：一张可带走的 AI 工作流画布</h2>
-        <p>输出一套可迁移的 9 步工作流设计画布、岗位映射、现场练习和 30 天落地路径。</p>
-      </header>
-      <article class="segment-card" id="segment-seg-07-transferable-ai-workflow-model" data-segment-id="seg-07-transferable-ai-workflow-model">
-        <div class="segment-meta"><span>讲授主线</span><span>07 / 07</span></div>
-        <h3>本章要解决的问题</h3>
-        <p class="main-message">最终交付不是五个项目的故事，而是一套九步工作流画布：选任务、定来源、拆节点、配角色、设工具、定义状态、设置质量门、安排人工复核、沉淀评估账本。</p>
-        <div class="content-blocks">
-          <aside class="content-block callout"><span class="block-label">本章结论</span><p>听众最后要带走的不是项目名，也不是工具名，而是一张 AI 工作流画布。画布把课程压缩成九步：选任务、定来源、拆节点、配角色、设工具、定义状态、设置质量门、安排人工复核、沉淀评估账本。</p></aside>
-          <p class="content-block"><span class="block-label">讲师切入</span>课程最后不要再扩展新概念，而要把前六章合并成一个可操作模板。你可以说：如果今天只记住一张图，就记住这张工作流画布。它能帮助你判断一个 AI 想法是不是适合落地，也能帮助你把落地过程变成可管理项目。</p>
-          <aside class="content-block note-block figure-note"><span class="block-label">九步画布一</span><p>选任务。优先选择高频、材料明确、步骤重复、输出可检查、错误可发现的任务。不要一开始选择高度开放、证据混乱、责任重大且没有复核机制的任务。选错任务，是很多 AI 项目失败的第一原因。</p></aside>
-          <p class="content-block"><span class="block-label">九步画布二</span>定来源。列出允许使用的文件、数据库、网页、人工输入和历史产物。再标出禁止来源、待验证来源和只能作背景的来源。来源清单比提示词更重要，因为它决定了 AI 能否被复核。</p>
-          <p class="content-block"><span class="block-label">九步画布三</span>拆节点。把任务拆成可执行动作：抽取、比对、归类、计算、检索、草拟、审阅、修复。每个节点都要有输入、输出、通过条件和退回条件。节点越清楚，AI 越像工作流；节点越模糊，AI 越像聊天。</p>
-          <aside class="content-block note-block figure-note"><span class="block-label">九步画布四</span><p>配角色。区分 AI 角色和人工角色。AI 可以做整理者、抽取者、检查者、反方提问者、草拟者；人负责口径选择、风险判断、最终批准和对外责任。角色设计的核心是责任清楚，不是角色名字好听。</p></aside>
-          <p class="content-block"><span class="block-label">九步画布五</span>设工具。工具不是越多越好，而是每个工具必须对应一个可复验动作。查询工具、计算工具、文档解析、表格处理、渲染工具、QA 工具，都要写清权限和输出格式。没有边界的工具调用会放大错误。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">九步画布六</span><p>定义状态。状态包括待处理、已抽取、待校验、存在冲突、需人工、已批准、已发布、已归档。状态让团队知道任务在哪里、卡在哪里、谁应该接手。没有状态，工作流会退回聊天和私人工具。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">九步画布七</span><p>设置质量门。质量门要具体到检查项：来源是否合格、字段是否完整、数字是否一致、引用是否存在、格式是否合规、风险是否触发、输出是否越界。门禁不是口号，而是可以通过或退回的条件。</p></aside>
-          <p class="content-block"><span class="block-label">九步画布八</span>安排人工复核。人工复核不要只看最终文字，而要看证据、过程、异常和模型做过什么。人应在高风险节点和最终输出前介入，复核记录应进入评估账本，而不是留在聊天窗口。</p>
-          <p class="content-block"><span class="block-label">九步画布九</span>沉淀评估账本。每次运行后记录成功、失败、错误来源、修复动作和下次规则。这样工作流会积累，而不是每次从头开始。AIpha 的知识复利、KAT 的 local repair、Hermes 的证据链都能落到这一步。</p>
-          <aside class="content-block callout"><span class="block-label">四类岗位练习</span><p>审计选择一个底稿核查任务；律师选择一个合同审阅任务；投行选择一个问询拆题或回复草拟任务；财务选择一个经营分析或口径比对任务。每组只填九步画布，不写提示词。</p></aside>
-          <p class="content-block"><span class="block-label">案例占比回收</span>五个项目在最后只作为证明材料。Hermes 证明任务流水线，KAT 证明物料工程化，Design Team 证明交付质量 Harness，AIpha 证明知识复利，Loki 证明决策治理。它们合起来支撑画布，但不抢画布的主角位置。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">讲师提示</span><p>最后 10 分钟要让学员动手，不要继续讲案例。你可以要求每个人写出一个“下周就能试”的小工作流，并明确第一道质量门和人工复核点。只要他们能写出来，课程就从启发变成训练。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">反例诊断</span><p>如果一个 AI 应用想法无法填出来源、节点、质量门和人工复核，就不应该马上开发。它可能只是一个灵感、一个 prompt，或者一个演示，而不是可以进入专业工作的 workflow。</p></aside>
-          <p class="content-block"><span class="block-label">60-90 分钟节奏</span>第一章 10 分钟建立词典，第二章 12 分钟讲 Hermes 主案例，第三章 10 分钟讲 KAT，第四章 8 分钟讲交付质量，第五章 8 分钟讲知识复利，第六章 10 分钟讲治理，第七章 15-25 分钟做现场画布练习。</p>
-          <aside class="content-block callout"><span class="block-label">最终收束</span><p>AI 工作流训练的目标不是让知识型工作者变成程序员，而是让他们能够判断哪些任务能被 AI 稳定承担，哪些环节必须由系统约束，哪些判断必须由人负责。</p></aside>
-          <p class="content-block"><span class="block-label">课后行动</span>学员回到岗位后，不要先买工具或写大 prompt。先选一个小任务，填九步画布，手工跑一遍，记录失败点，再决定哪些节点值得自动化。这样才能把 AI 从偶发效率变成可复核能力。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">长文和 PPT 的分工</span><p>PPT 是现场讲授和图解工具，长文是讲师手册和课后复盘资料。两份 HTML 应该互相支撑：PPT 不堆字，长文不露制作痕迹；PPT 给结构，长文给解释、反例、练习和边界。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">课程验收</span><p>一套合格课件应能让听众复述基础术语、画出任务流水线、识别证据和质量门、解释为什么项目案例只是辅助、完成自己的九步画布，并理解 AI 工作流的责任边界。</p></aside>
-          <p class="content-block"><span class="block-label">讲师台本</span>最后一章要把讲授切换成工作坊。不要继续堆概念，直接发出九步画布，让学员选一个真实任务填。现场最好让每个人至少写出第一道质量门和一个人工复核点。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">常见误区</span><p>很多人会把画布填成愿望清单，比如“让 AI 自动分析客户”。要把它拉回可执行节点：材料是什么、动作是什么、输出是什么、质量门是什么、谁批准。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">30 天落地</span><p>第一周选任务和来源地图，第二周拆节点和输出格式，第三周设置质量门和人工复核，第四周记录评估账本并做一次局部修复。不要第一天就追求全自动。</p></aside>
-          <aside class="content-block callout"><span class="block-label">岗位提示</span><p>工作流画布的第一版可以手工运行。先证明节点和质量门成立，再考虑自动化。手工跑不通的流程，自动化只会更快地暴露混乱。</p></aside>
-          <p class="content-block"><span class="block-label">课堂追问</span>你的第一个 AI 工作流试点，失败时最可能在哪里失败？来源、节点、工具、输出、质量门、人工复核，还是评估账本？让学员提前说出失败点，可以降低落地风险。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">讲师收束</span><p>课程结束时，学员应带走一个具体任务、一张九步画布、一个质量门、一个复核点和一个评估字段。这样培训才从理念变成行动。</p></aside>
-          <p class="content-block"><span class="block-label">深读讲稿</span>最后一章要完成从“听懂”到“能做”的转换。讲师不要再引入新论文或新案例，而是把所有内容压回九步画布。每一步都要能被学员现场填写：任务是什么，来源是什么，节点是什么，角色是谁，工具是什么，状态如何记录，质量门怎么过，谁复核，如何评估。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">机制补充</span><p>九步画布不是项目管理表，而是 AI 工作流的最小治理结构。它把前面六章全部落地：基础词典决定对象，Workflow/DAG 决定节点，Agent 决定角色和工具，Harness 决定状态和质量门，事实驱动决定来源，案例诊所决定业务迁移。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">失败模式</span><p>很多人听完 AI 培训会马上写一个宏大的自动化目标，例如“自动做尽调”“自动写回复”“自动分析经营”。九步画布的作用是把宏大目标压回一个小任务、一个来源地图、几个节点和一道质量门。越小，越能真实落地。</p></aside>
-          <aside class="content-block callout"><span class="block-label">讲师落点</span><p>课程最终不要求学员立刻开发系统，而要求他们能识别一个适合 AI 工作流化的任务，并写出第一版画布。一个可复核的小流程，比一个无法验证的大设想更有价值。</p></aside>
-          <p class="content-block"><span class="block-label">课后作业</span>30 天路线可以这样安排：第 1 周选任务和来源地图，第 2 周拆节点和输出格式，第 3 周设置质量门和人工复核，第 4 周跑一次真实任务并记录评估账本。这个路线让培训从一次课延伸为一轮可复盘实践。</p>
-          <p class="content-block"><span class="block-label">现场讲授脚本</span>最后一章要给学员一个明确的行动承诺：下周不要做大项目，只做一个小工作流。请他们现场写下任务名、来源、三个节点、一道质量门和一个人工复核点。这个承诺越小，越有可能真的发生。课程价值要落在这张纸上。</p>
-          <aside class="content-block note-block table-note"><span class="block-label">Q&amp;A 准备</span><p>如果有人问“怎么判断第一个任务选得好不好”，可以回答：好任务有五个特征：高频、材料明确、步骤重复、输出可检查、风险可控。缺其中两项以上，就不适合作为第一个试点。</p></aside>
-          <aside class="content-block note-block figure-note"><span class="block-label">板书建议</span><p>把九步画布画成一个环，而不是线性清单。最后的评估账本会回到下一次任务选择和流程修复。这样学员能理解 AI 工作流不是一次项目，而是一套持续改进机制。</p></aside>
-          <aside class="content-block callout"><span class="block-label">落地检查表</span><p>课程结束时，每位学员至少应带走一张自己的九步画布、一个小任务、一个来源地图、一个质量门、一个复核点和一个 30 天内可完成的下一步。</p></aside>
-        </div>
-<aside class="source-notes"><strong>参考依据</strong><ul><li>课程综合：Harness 手册、post-2026-02-05 论文筛选和五个脱敏项目案例</li><li>KAT / NERO / Hermes / AIpha / Loki：作为业务案例支持九步画布</li><li>用户验收要求：面向 60-90 分钟讲授，可打开、可讲授、可复盘</li></ul></aside>
-      </article>
-    </section>    <footer class="artifact-appendix">
-      <h2>课后带走什么</h2>
-      <p><strong>一张画布，一套边界，一组可复用检查点。</strong> 学员不需要复制讲师的五个项目，而要带走选任务、定来源、拆节点、配角色、设工具、定义状态、设置质量门、安排人工复核和沉淀评估账本的九步方法。</p>
-      <dl class="meta-grid">
-        <div><dt>现场材料</dt><dd>PPT 用于讲授、图解和互动</dd></div>
-        <div><dt>复盘材料</dt><dd>长文用于课后回看讲法和练习</dd></div>
-        <div><dt>案例边界</dt><dd>项目只作业务证明，不作宣传页</dd></div>
-        <div><dt>风险边界</dt><dd>不进入客户敏感材料、私有结论或工具品牌教程</dd></div>
-      </dl>
+
+    <footer>
+      <span>AI 工作流训练课件</span>
+      <span>长文和 PPT 分离发布，首页只作为入口。</span>
     </footer>
   </main>
 </body>
